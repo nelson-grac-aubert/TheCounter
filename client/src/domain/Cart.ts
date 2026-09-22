@@ -1,3 +1,3 @@
-import { CartLine } from "./CartLine";
+import type { CartLine } from "./CartLine";
 
 export type Cart = CartLine[];
