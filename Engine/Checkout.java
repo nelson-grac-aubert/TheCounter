@@ -4,7 +4,7 @@ public class Checkout {
     
     public void print(Cart cart)
     {
-        System.out.println(cart.checkout());
+        System.out.println(cart.toString());
     }
     public static void main(String[] args)
     {

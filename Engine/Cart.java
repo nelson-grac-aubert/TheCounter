@@ -24,8 +24,13 @@ public class Cart {
     }
     
     // method that automatically calls toString method that gives our object a textual representation must overide later
-    public String checkout()
+    // public String checkout()
+    // {
+    //     return this.toString();
+    // }
+    @Override 
+    public String toString()
     {
-        return this.toString();
+        return "Product: " + lines + " Total: " + cartTotal() + " $";
     }
 }
