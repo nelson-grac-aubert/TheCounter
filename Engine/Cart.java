@@ -1,8 +1,5 @@
 package Engine;
 
-import Engine.CartLine;
-import Engine.Product;
-
 import java.util.ArrayList;
 import java.util.List;
 
