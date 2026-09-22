@@ -26,4 +26,9 @@ public class Cart {
         return total;
     }
     
+    // method that automatically calls toString method that gives our object a textual representation must overide later
+    public String checkout()
+    {
+        return this.toString();
+    }
 }

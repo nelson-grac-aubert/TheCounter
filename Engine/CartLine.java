@@ -5,6 +5,6 @@ public record CartLine(Product product, int quantity) {
     // method that multiply each product by the quantity for each line
     public double cartLineTotal() 
     {
-        return product.unit_price() *quantity;
+        return product.unitPrice() *quantity;
     }
 }
