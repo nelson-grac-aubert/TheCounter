@@ -3,6 +3,8 @@ package Engine.src.main.java.engine;
 import java.util.ArrayList;
 import java.util.List;
 
+import Engine.src.main.java.engine.Product.ProductCategory;
+
 public class Checkout {
     
     // Convert a cart with CartLines into a Ticket with Ticketlines, with 
@@ -10,8 +12,19 @@ public class Checkout {
     public Ticket convert(Cart cart) {
         List<TicketLine> lines = new ArrayList<>();
 
+        double vat; 
+
         for (CartLine line : cart.getLines()) {
-            TicketLine ticketLine = new TicketLine(line.product(), line.quantity(), line.cartLineTotal());
+            if (line.product().category() == ProductCategory.OTHER) { 
+                vat = 20.0; 
+            }
+            else {
+                vat = 5.5;
+            }
+            
+            double excludingTaxLine = line.cartLineTotal() / (1 + vat/100);
+
+            TicketLine ticketLine = new TicketLine(line.product(), line.quantity(), line.cartLineTotal(), excludingTaxLine, vat);
 
             lines.add(ticketLine);
         }
