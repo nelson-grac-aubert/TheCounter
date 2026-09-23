@@ -3,6 +3,8 @@ package engine;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.Gson;
+
 public class Checkout {
     
     public Ticket convert(Cart cart) {
@@ -25,6 +27,9 @@ public class Checkout {
     {
         Checkout checkout = new  Checkout();
         Cart cart = new Cart();
+        Ticket ticket = checkout.convert(cart);
+        Gson gson = new Gson();
+        System.out.println(gson.toJson(ticket));
         checkout.print(cart);
     }
 }
