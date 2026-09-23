@@ -1,4 +1,5 @@
 import { checkout } from "./api";
+import { formatReceipt } from "./receipt";
 import { threeBeveragesDiscountCart, aboveFiftyEurosCart, allConflictingDiscountsCart } from "./scenarios";
 
 async function main() {
@@ -6,7 +7,8 @@ async function main() {
 
   for (const cart of carts) {
     const ticket = await checkout(cart);
-    console.log(ticket);
+    console.log(formatReceipt(ticket));
+
   }
 }
 

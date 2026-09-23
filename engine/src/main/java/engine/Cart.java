@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Engine.src.main.java.engine.Product.ProductCategory;
+import java.util.Collections;
 
 
 public class Cart {
@@ -15,23 +16,28 @@ public class Cart {
         lines.add(new CartLine(product, quantity));
     }
 
-    public double cheapestDrinkPrice() { 
-        int drinksCount = 0; 
-        // highest double possible so first drink analysed is always cheaper
-        double cheapestPrice = Double.MAX_VALUE;
-        for (CartLine line : lines) { 
-            if (line.product().category() == Product.ProductCategory.DRINKS) { 
-                drinksCount += line.quantity(); 
-
-                if (line.product().unitPrice() <= cheapestPrice) {
-                    cheapestPrice = line.product().unitPrice();
+    public double freeDrinksDiscount() {
+        // one entry per drink unit
+        List<Double> drinkPrices = new ArrayList<>();
+        for (CartLine line : lines) {
+            if (line.product().category() == ProductCategory.DRINKS) {
+                for (int i = 0; i < line.quantity(); i++) {
+                    drinkPrices.add(line.product().unitPrice());
                 }
             }
         }
-        if (drinksCount >= 3) {
-            return cheapestPrice;
+
+        // cheapest first
+        Collections.sort(drinkPrices);
+
+        // one free drink every 3 drinks
+        int freeDrinksCount = drinkPrices.size() / 3;
+        double freeDrinksTotal = 0.0;
+        for (int i = 0; i < freeDrinksCount; i++) {
+            freeDrinksTotal += drinkPrices.get(i);
         }
-        return 0.0; 
+
+        return freeDrinksTotal;
     }
 
         //TTC price calculation for food 5.5
@@ -82,7 +88,7 @@ public class Cart {
         // }
 
         // quick, dirty v3
-        total -= cheapestDrinkPrice();
+        total -= freeDrinksDiscount();
 
         // quick, dirty v2
         if (total >= 50) { 
