@@ -13,10 +13,10 @@ export function formatReceipt(ticket: Ticket): string {
     const label = line.product.label.padEnd(30);
     // quantity prefixed with "x", padded so the price column lines up
     const quantity = `x${line.quantity}`.padEnd(6);
-    // placeholder label
-    const vat = "VAT%".padEnd(12);
-    // placeholder label only
-    const excludingTax = "ET".padEnd(16);
+    // VAT rate computed by the engine (v4)
+    const vat = `VAT ${line.vatRate}%`.padEnd(12);
+    // price excluding tax computed by the engine (v4)
+    const excludingTax = `ET ${currencyFormatter.format(line.excludingTax)}`.padEnd(16);
     // "including tax" price
     const includingTax = `IT ${currencyFormatter.format(line.lineTotal)}`.padStart(10);
     return `${label}${quantity}${vat}${excludingTax}${includingTax}`;

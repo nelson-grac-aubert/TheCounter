@@ -4,6 +4,8 @@ export interface TicketLine {
   product: Product;
   quantity: number;
   lineTotal: number;
+  excludingTax: number;
+  vatRate: number;
 }
 
 export interface Ticket {
