@@ -17,8 +17,8 @@ public class Checkout {
         }
 
         //ttc v3
-        double foodTtc = cart.foodTotal();
-        double otherTtc = cart.otherTotal() - cart.freeDrinksDiscount() ;
+        double foodTtc = cart.foodTotal()- cart.freeDrinksDiscount();
+        double otherTtc = cart.otherTotal()  ;
         double subTotal = foodTtc + otherTtc;
 
         //ttc v2

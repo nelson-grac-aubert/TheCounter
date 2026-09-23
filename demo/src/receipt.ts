@@ -24,13 +24,13 @@ export function formatReceipt(ticket: Ticket): string {
 
   const separator = "-".repeat(74);
 
-  // footer: placeholder labels only for what v4 hasn't computed yet
+  // footer: engine now computes these four (v4), discount amount itself still isn't exposed separately
   const footer = [
-    "ET TOTAL".padEnd(46),
-    "TOTAL 5.5% TAX".padEnd(46),
-    "TOTAL 20% TAX".padEnd(46),
+    "ET TOTAL".padEnd(31) + currencyFormatter.format(ticket.totalHt).padStart(43),
+    "TOTAL 5.5% TAX".padEnd(31) + currencyFormatter.format(ticket.vat5).padStart(43),
+    "TOTAL 20% TAX".padEnd(31) + currencyFormatter.format(ticket.vat20).padStart(43),
     "APPLIED DISCOUNT".padEnd(46),
-    "NET TOTAL".padEnd(31) + currencyFormatter.format(ticket.total).padStart(43)
+    "NET TOTAL".padEnd(31) + currencyFormatter.format(ticket.totalTtc).padStart(43)
   ];
 
   const ticketEnd = "\n\n\n";

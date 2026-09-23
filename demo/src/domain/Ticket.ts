@@ -8,5 +8,8 @@ export interface TicketLine {
 
 export interface Ticket {
   lines: TicketLine[];
-  total: number;
+  totalHt: number;
+  vat5: number;
+  vat20: number;
+  totalTtc: number;
 }
