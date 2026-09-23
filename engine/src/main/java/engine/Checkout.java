@@ -3,10 +3,10 @@ package engine;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.Gson;
-
 public class Checkout {
     
+    // Convert a cart with CartLines into a Ticket with Ticketlines, with 
+    // all the data we need : total, discounts... 
     public Ticket convert(Cart cart) {
         List<TicketLine> lines = new ArrayList<>();
 
@@ -25,11 +25,8 @@ public class Checkout {
     }
     public static void main(String[] args)
     {
-        Checkout checkout = new  Checkout();
+        Checkout checkout = new Checkout();
         Cart cart = new Cart();
-        Ticket ticket = checkout.convert(cart);
-        Gson gson = new Gson();
-        System.out.println(gson.toJson(ticket));
         checkout.print(cart);
     }
 }

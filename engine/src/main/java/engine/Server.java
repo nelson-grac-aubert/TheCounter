@@ -22,10 +22,12 @@ public class Server {
             // getRequestBody return an InputStream, brute bytes of the request body
             // String(xxxxxxxx UTF8) : convert bytes into a string with UTF8 standard
             String body = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
+            // Parse this JSON text, knowing it's an array, where every element is a CartLine
             Type cartLineListType = new TypeToken<List<CartLine>>(){}.getType();
-
+            // every line of the body becomes an actual CartLine
             List<CartLine> parsedLines = gson.fromJson(body, cartLineListType);
-
+            
+            // recreate a cart with the lines, as lines are just raw data, we need the methods of a cart 
             Cart cart = new Cart();
             for (CartLine line : parsedLines) {
                 cart.addLine(line.product(), line.quantity());

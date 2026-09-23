@@ -33,15 +33,5 @@ public class Cart {
     public List<CartLine> getLines() {
         return lines;
     }
-    
-    // method that automatically calls toString method that gives our object a textual representation must overide later
-    // public String checkout()
-    // {
-    //     return this.toString();
-    // }
-    @Override 
-    public String toString()
-    {
-        return "Product: " + lines + " Total: " + cartTotal() + " $";
-    }
+
 }
