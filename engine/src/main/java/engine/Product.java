@@ -1,4 +1,4 @@
-package Engine;
+package engine.src.main.java.engine;
 
 //Record is a type of class to store data, no setters, read-only
 // public record Product(String label, double unit_price, String refrence, String category)
