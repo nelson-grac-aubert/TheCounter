@@ -29,6 +29,10 @@ public class Cart {
 
         return total;
     }
+
+    public List<CartLine> getLines() {
+        return lines;
+    }
     
     // method that automatically calls toString method that gives our object a textual representation must overide later
     // public String checkout()
