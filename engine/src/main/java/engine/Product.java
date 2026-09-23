@@ -1,8 +1,9 @@
 package engine;
 
+
 //Record is a type of class to store data, no setters, read-only
 // public record Product(String label, double unit_price, String refrence, String category)
-public record Product(String label, double unitPrice) {
+public record Product(String reference, ProductCategory category, String label, double unitPrice) {
 }
 
 /*

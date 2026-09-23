@@ -12,6 +12,25 @@ public class Cart {
     {
         lines.add(new CartLine(product, quantity));
     }
+
+    public double cheapestDrinkPrice() { 
+        int drinksCount = 0; 
+        // highest double possible so first drink analysed is always cheaper
+        double cheapestPrice = Double.MAX_VALUE;
+        for (CartLine line : lines) { 
+            if (line.product().category() == ProductCategory.DRINKS) { 
+                drinksCount += line.quantity(); 
+
+                if (line.product().unitPrice() <= cheapestPrice) {
+                    cheapestPrice = line.product().unitPrice();
+                }
+            }
+        }
+        if (drinksCount >= 3) {
+            return cheapestPrice;
+        }
+        return 0.0; 
+    }
     //method that simply sums up the cart total by iterating through each line and adding the result of cartLineTotal
     public double cartTotal()
     {
@@ -21,6 +40,9 @@ public class Cart {
         {
             total += line.cartLineTotal();
         }
+
+        // quick, dirty v3
+        total -= cheapestDrinkPrice();
 
         // quick, dirty v2
         if (total >= 50) { 

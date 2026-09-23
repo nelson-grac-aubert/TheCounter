@@ -7,63 +7,63 @@ const fruit: Product = {
     reference: "REF000",
     label: "Strawberries 2kg",
     unitPrice: 12.55,
-    category: "food",
+    category: "FOOD",
 };
 
 const cheese: Product = {
     reference: "REF001",
     label: "Cheddar cheese 150g",
     unitPrice: 2.29,
-    category: "food",
+    category: "FOOD",
 };
 
 const meat: Product = {
     reference: "REF002",
     label: "Minced beef 1kg",
     unitPrice: 17.99,
-    category: "food",
+    category: "FOOD",
 };
 
 const lemonade: Product = {
     reference: "REF003",
     label: "Lemonade 1.5L",
     unitPrice: 3.56,
-    category: "drink",
+    category: "DRINKS",
 };
 
 const beer: Product = {
     reference: "REF004",
     label: "Beer 24 x 33cL",
     unitPrice: 12.79,
-    category: "drink",
+    category: "DRINKS",
 };
 
 const wine: Product = {
     reference: "REF007",
     label: "White wine Coteaux d'Aix",
     unitPrice: 9.79,
-    category: "drink",
+    category: "DRINKS",
 };
 
 const sirup: Product = {
     reference: "REF009",
     label: "Almond Sirup 1.5L",
     unitPrice: 2.56,
-    category: "drink",
+    category: "DRINKS",
 };
 
 const socks: Product = {
     reference: "REF005",
     label: "Cotton socks x3 pairs",
     unitPrice: 12.79,
-    category: "other",
+    category: "OTHER",
 };
 
 const gardenChair: Product = {
     reference: "REF006",
     label: "Forged Iron Garden Chair",
     unitPrice: 79.99,
-    category: "other",
+    category: "OTHER",
 };
 
 // CARTLINES
