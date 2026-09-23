@@ -25,7 +25,7 @@
         <artifactId>exec-maven-plugin</artifactId>
         <version>3.5.0</version>
         <configuration>
-          <mainClass>engine.Server</mainClass>
+          <mainClass>Engine.src.main.java.engine.Server</mainClass>
         </configuration>
       </plugin>
     </plugins>
