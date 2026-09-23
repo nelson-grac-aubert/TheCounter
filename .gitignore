@@ -25,5 +25,5 @@ replay_pid*
 
 *.pdf
 
-/target
+target/
 node_modules/
