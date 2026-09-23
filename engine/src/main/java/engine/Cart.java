@@ -3,6 +3,8 @@ package Engine.src.main.java.engine;
 import java.util.ArrayList;
 import java.util.List;
 
+import Engine.src.main.java.engine.Product.ProductCategory;
+
 
 public class Cart {
     // declare lines as a list of CartLine init as a dynamic array
@@ -31,15 +33,53 @@ public class Cart {
         }
         return 0.0; 
     }
+
+        //TTC price calculation for food 5.5
+    public double foodTotal()
+    {
+        double total = 0.0;
+        for(CartLine line : lines)
+        {
+            //for each line of cartline check if each product of said line is equal to enum cat food 
+            if (line.product().category() == Product.ProductCategory.FOOD || line.product().category() ==  (Product.ProductCategory.DRINKS))
+            {
+                total += line.cartLineTotal();
+            }
+        }
+        return total;
+    }
+
+        //TTC price calculation for everything else 20
+    public double otherTotal()
+    {
+        double total = 0.0;
+        
+        for (CartLine line : lines)
+             //for each line of cartline check if each product of said line is not equal to enum cat food 
+        {
+            if (line.product().category() == ProductCategory.OTHER) {
+                total += line.cartLineTotal();
+            }
+        }
+        return total;
+
+    }
+
+
+
+
+
     //method that simply sums up the cart total by iterating through each line and adding the result of cartLineTotal
     public double cartTotal()
     {
-        double total = 0.0;
-        for (CartLine line : lines)
+        double food = foodTotal(); 
+        double other = otherTotal();
+        double total = food + other;
+        // for (CartLine line : lines)
         
-        {
-            total += line.cartLineTotal();
-        }
+        // {
+        //     total += line.cartLineTotal();
+        // }
 
         // quick, dirty v3
         total -= cheapestDrinkPrice();
@@ -55,5 +95,7 @@ public class Cart {
     public List<CartLine> getLines() {
         return lines;
     }
+
+
 
 }

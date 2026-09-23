@@ -16,7 +16,36 @@ public class Checkout {
             lines.add(ticketLine);
         }
 
-        return new Ticket(lines, cart.cartTotal());
+        //ttc v3
+        double foodTtc = cart.foodTotal();
+        double otherTtc = cart.otherTotal() - cart.cheapestDrinkPrice() ;
+        double subTotal = foodTtc + otherTtc;
+
+        //ttc v2
+        double discount = (subTotal > 50) ? 0.9 : 1.0;
+        foodTtc *= discount;
+        otherTtc *= discount;
+
+        //ttc and tax
+        double foodHt = foodTtc / 1.055;
+        double vat5 = foodTtc - foodHt;
+        double otherHt = otherTtc / 1.2;
+        double vat20 = otherTtc - otherHt;
+        double totalHt = foodHt + otherHt;
+        double totalTtc = foodTtc + otherTtc;
+
+        return new Ticket(
+            lines,
+            totalHt,
+            vat5,
+            vat20,
+            totalTtc
+        );
+
+
+        
+
+
     }
     
     public void print(Cart cart)
