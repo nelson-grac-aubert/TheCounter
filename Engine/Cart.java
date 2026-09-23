@@ -17,9 +17,16 @@ public class Cart {
     {
         double total = 0.0;
         for (CartLine line : lines)
+        
         {
             total += line.cartLineTotal();
         }
+
+        // quick, dirty v2
+        if (total >= 50) { 
+            return (total * 0.9);
+        }
+
         return total;
     }
     
