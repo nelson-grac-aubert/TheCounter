@@ -1,4 +1,4 @@
-package engine;
+package Engine.src.main.java.engine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ public class Cart {
         // highest double possible so first drink analysed is always cheaper
         double cheapestPrice = Double.MAX_VALUE;
         for (CartLine line : lines) { 
-            if (line.product().category() == ProductCategory.DRINKS) { 
+            if (line.product().category() == Product.ProductCategory.DRINKS) { 
                 drinksCount += line.quantity(); 
 
                 if (line.product().unitPrice() <= cheapestPrice) {
