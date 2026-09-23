@@ -13,18 +13,28 @@ export function formatReceipt(ticket: Ticket): string {
     const label = line.product.label.padEnd(30);
     // quantity prefixed with "x", padded so the price column lines up
     const quantity = `x${line.quantity}`.padEnd(6);
-    // price right-aligned on 10 chars so decimals line up across lines
-    const price = currencyFormatter.format(line.lineTotal).padStart(10);
-    return `${label}${quantity}${price}`;
+    // placeholder label
+    const vat = "VAT%".padEnd(12);
+    // placeholder label only
+    const excludingTax = "ET".padEnd(16);
+    // "including tax" price
+    const includingTax = `IT ${currencyFormatter.format(line.lineTotal)}`.padStart(10);
+    return `${label}${quantity}${vat}${excludingTax}${includingTax}`;
   });
 
-  // dashes matching the total line width (25 + 6 + 10), purely visual
-  const separator = "-".repeat(46);
-  const ticketEnd = " ".repeat(46);
+  const separator = "-".repeat(74);
 
+  // footer: placeholder labels only for what v4 hasn't computed yet
+  const footer = [
+    "ET TOTAL".padEnd(46),
+    "TOTAL 5.5% TAX".padEnd(46),
+    "TOTAL 20% TAX".padEnd(46),
+    "APPLIED DISCOUNT".padEnd(46),
+    "NET TOTAL".padEnd(31) + currencyFormatter.format(ticket.total).padStart(43)
+  ];
 
-  const totalLine = "TOTAL".padEnd(31) + currencyFormatter.format(ticket.total).padStart(15);
+  const ticketEnd = "\n\n\n";
 
   // one string per line, joined with real line breaks for console.log
-  return [...lines, separator, totalLine, ticketEnd, ticketEnd, ticketEnd].join("\n");
+  return [...lines, separator, ...footer, ticketEnd].join("\n");
 }
