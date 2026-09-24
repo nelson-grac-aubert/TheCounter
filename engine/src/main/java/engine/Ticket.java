@@ -1,4 +1,4 @@
-package Engine.src.main.java.engine;
+package engine.src.main.java.engine;
 
 import java.util.List;
 
@@ -9,7 +9,6 @@ public record Ticket (
     double vat20,
     double totalTtc,
     //added for fidelity points in v5
-    String appliedDiscount,
     double discountAmount,
     int fidPEarned,
     int fidBalance
