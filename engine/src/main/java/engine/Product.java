@@ -1,4 +1,4 @@
-package Engine.src.main.java.engine;
+package engine.src.main.java.engine;
 
 
 //Record is a type of class to store data, no setters, read-only
