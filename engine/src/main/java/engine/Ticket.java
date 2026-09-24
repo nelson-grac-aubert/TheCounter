@@ -7,7 +7,12 @@ public record Ticket (
     double totalHt,
     double vat5,
     double vat20,
-    double totalTtc
+    double totalTtc,
+    //added for fidelity points in v5
+    String appliedDiscount,
+    double discountAmount,
+    int fidPEarned,
+    int fidBalance
 )
 {
     
