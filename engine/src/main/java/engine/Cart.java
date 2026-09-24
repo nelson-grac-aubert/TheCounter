@@ -3,7 +3,7 @@ package Engine.src.main.java.engine;
 import java.util.ArrayList;
 import java.util.List;
 
-import Engine.src.main.java.engine.Product.ProductCategory;
+import engine.src.main.java.engine.Product.ProductCategory;
 import java.util.Collections;
 
 
@@ -70,7 +70,17 @@ public class Cart {
         return total;
 
     }
-
+    
+    //fid points getters and setters
+    private int fidelityPoints = 0;
+    public void setFidPoints(int points)
+    {
+        this.fidelityPoints = points;
+    }
+    public int getFidPoints()
+    {
+        return fidelityPoints;
+    }
 
 
 
