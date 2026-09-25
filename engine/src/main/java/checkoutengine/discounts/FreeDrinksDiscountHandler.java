@@ -9,7 +9,7 @@ import java.util.List;
 
 public class FreeDrinksDiscountHandler extends DiscountHandler {
 
-    public double computeDiscount(Cart cart) {
+    public double computeDiscount(Cart cart, int fidelityPoints) {
         // one entry per drink unit
         List<Double> drinkPrices = new ArrayList<>();
         for (CartLine line : cart.getLines()) {

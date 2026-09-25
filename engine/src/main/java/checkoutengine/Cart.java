@@ -14,6 +14,8 @@ public class Cart {
         lines.add(new CartLine(product, quantity));
     }
 
+    // No fidelity balance stored here anymore (removed per audit SRP finding)
+    // it now flows through Checkout.convert(cart, fidelityPoints) as a parameter
     public double subtotal() {
         double total = 0.0;
         for (CartLine line : lines) {
@@ -22,7 +24,7 @@ public class Cart {
         return total;
     }
 
-        //TTC price calculation for food 5.5
+    //TTC price calculation for food 5.5
     public double foodTotal()
     {
         double total = 0.0;
@@ -37,7 +39,7 @@ public class Cart {
         return total;
     }
 
-        //TTC price calculation for everything else 20
+    //TTC price calculation for everything else 20
     public double otherTotal()
     {
         double total = 0.0;
@@ -51,17 +53,6 @@ public class Cart {
         }
         return total;
 
-    }
-    
-    //fid points getters and setters
-    private int fidelityPoints = 0;
-    public void setFidPoints(int points)
-    {
-        this.fidelityPoints = points;
-    }
-    public int getFidPoints()
-    {
-        return fidelityPoints;
     }
 
     public List<CartLine> getLines() {

@@ -29,8 +29,7 @@ public class Server {
                 cart.addLine(line.product(), line.quantity());
             }
 
-            cart.setFidPoints(request.fidelityPoints());
-            Ticket ticket = checkout.convert(cart);
+            Ticket ticket = checkout.convert(cart, request.fidelityPoints());
             // inverse of turning bytes into string
             byte[] responseBytes = gson.toJson(ticket).getBytes(StandardCharsets.UTF_8);
             // tell the client he will recieve a JSON

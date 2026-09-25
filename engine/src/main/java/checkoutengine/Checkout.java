@@ -12,9 +12,9 @@ import checkoutengine.discounts.ThresholdDiscountHandler;
 
 public class Checkout {
     
-    // Convert a cart with CartLines into a Ticket with Ticketlines, with 
-    // all the data we need : total, discounts... 
-    public Ticket convert(Cart cart) {
+    // fidelityPoints is passed as a parameter, not stored on Cart : loyalty balance
+    // belongs to the customer, not to a single basket : keeps Cart a simple line container (SRP)
+    public Ticket convert(Cart cart, int fidelityPoints) {
         List<TicketLine> lines = new ArrayList<>();
 
         for (CartLine line : cart.getLines()) {
@@ -31,10 +31,11 @@ public class Checkout {
         // order doesn't matter : all are checked, and only the best one is kept
         DiscountHandler chain = new ThresholdDiscountHandler();
         chain.setNext(new FreeDrinksDiscountHandler()).setNext(new FidelityDiscountHandler());
-        DiscountHandler winner = chain.findBest(cart, new NoDiscount());
+        // Default is NoDiscount to start the chain check
+        DiscountHandler winner = chain.findBest(cart, fidelityPoints, new NoDiscount());
         
         // COR : get the best discount value (for computation) and name (for receipt display)
-        double discountAmount = winner.computeDiscount(cart);
+        double discountAmount = winner.computeDiscount(cart, fidelityPoints);
         String discountName = winner.name();
 
         double noDisFoodTtc = cart.foodTotal();
@@ -57,7 +58,7 @@ public class Checkout {
         //fid points
         //cast a double as an int and round the amount 48.66 euros = 48 points
         int fidPEarned = (int) Math.floor(totalTtc); 
-        int fidBalance = cart.getFidPoints() - (usedFid ? 100 : 0) + fidPEarned;
+        int fidBalance = fidelityPoints - (usedFid ? 100 : 0) + fidPEarned;
 
         return new Ticket(
             lines,
