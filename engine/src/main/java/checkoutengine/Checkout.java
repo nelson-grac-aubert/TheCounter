@@ -1,9 +1,10 @@
-package engine.src.main.java.engine;
+package checkoutengine;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import engine.src.main.java.engine.Product.ProductCategory;
+import checkoutengine.VAT.VatRateStrategy;
+import checkoutengine.Product.ProductCategory;
 
 public class Checkout {
     
@@ -12,17 +13,11 @@ public class Checkout {
     public Ticket convert(Cart cart) {
         List<TicketLine> lines = new ArrayList<>();
 
-        double vat; 
-
         for (CartLine line : cart.getLines()) {
-            if (line.product().category() == ProductCategory.OTHER) { 
-                vat = 20.0; 
-            }
-            else {
-                vat = 5.5;
-            }
+            VatRateStrategy vatRateStrategy = line.product().category().vatRateStrategy();
+            double vat = vatRateStrategy.rate();
             
-            double excludingTaxLine = line.cartLineTotal() / (1 + vat/100);
+            double excludingTaxLine = vatRateStrategy.excludingTaxFrom(line.cartLineTotal());
 
             TicketLine ticketLine = new TicketLine(line.product(), line.quantity(), line.cartLineTotal(), excludingTaxLine, vat);
 

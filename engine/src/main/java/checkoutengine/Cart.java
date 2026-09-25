@@ -1,9 +1,9 @@
-package engine.src.main.java.engine;
+package checkoutengine;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import engine.src.main.java.engine.Product.ProductCategory;
+import checkoutengine.Product.ProductCategory;
 import java.util.Collections;
 
 

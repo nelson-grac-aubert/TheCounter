@@ -1,11 +1,10 @@
-package engine.src.main.java.engine;
+package checkoutengine;
 
 import com.sun.net.httpserver.HttpServer;
 import java.net.InetSocketAddress;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import com.google.gson.Gson;
-import java.util.List;
 
 public class Server {
     public static void main(String[] args) throws IOException {

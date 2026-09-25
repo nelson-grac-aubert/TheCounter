@@ -1,4 +1,4 @@
-package engine.src.main.java.engine;
+package checkoutengine;
 
 public class FidelityCard {
 
