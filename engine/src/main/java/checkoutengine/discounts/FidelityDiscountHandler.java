@@ -1,6 +1,6 @@
 package checkoutengine.discounts;
 
-import checkoutengine.Cart;
+import checkoutengine.domain.Cart;
 
 public class FidelityDiscountHandler extends DiscountHandler {
     public double computeDiscount(Cart cart, int fidelityPoints) {

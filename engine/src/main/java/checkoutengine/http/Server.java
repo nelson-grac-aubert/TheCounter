@@ -1,6 +1,12 @@
-package checkoutengine;
+package checkoutengine.http;
 
 import com.sun.net.httpserver.HttpServer;
+
+import checkoutengine.Checkout;
+import checkoutengine.domain.Cart;
+import checkoutengine.domain.CartLine;
+import checkoutengine.domain.Ticket;
+
 import java.net.InetSocketAddress;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

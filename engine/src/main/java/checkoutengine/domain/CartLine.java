@@ -1,4 +1,4 @@
-package checkoutengine;
+package checkoutengine.domain;
 
 public record CartLine(Product product, int quantity) {
 

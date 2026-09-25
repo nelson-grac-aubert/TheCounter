@@ -1,11 +1,12 @@
 package checkoutengine.discounts;
 
-import checkoutengine.Cart;
-import checkoutengine.CartLine;
-import checkoutengine.Product.ProductCategory;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import checkoutengine.domain.Cart;
+import checkoutengine.domain.CartLine;
+import checkoutengine.domain.Product.ProductCategory;
 
 public class FreeDrinksDiscountHandler extends DiscountHandler {
 

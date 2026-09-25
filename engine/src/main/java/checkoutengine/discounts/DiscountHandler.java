@@ -1,6 +1,6 @@
 package checkoutengine.discounts;
 
-import checkoutengine.Cart;
+import checkoutengine.domain.Cart;
 
 /* Chain Of Reponsability 
 DiscountHandler goes through each possible discount and keeps the best 

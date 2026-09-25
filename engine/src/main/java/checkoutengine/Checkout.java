@@ -12,6 +12,10 @@ import checkoutengine.discounts.FidelityDiscountHandler;
 import checkoutengine.discounts.FreeDrinksDiscountHandler;
 import checkoutengine.discounts.NoDiscount;
 import checkoutengine.discounts.ThresholdDiscountHandler;
+import checkoutengine.domain.Cart;
+import checkoutengine.domain.CartLine;
+import checkoutengine.domain.Ticket;
+import checkoutengine.domain.TicketLine;
 
 public class Checkout {
     

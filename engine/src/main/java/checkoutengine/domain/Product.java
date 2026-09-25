@@ -1,4 +1,4 @@
-package checkoutengine;
+package checkoutengine.domain;
 
 import checkoutengine.VAT.VatRateStrategy;
 import checkoutengine.VAT.FoodVatRate;

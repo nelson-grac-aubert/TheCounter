@@ -1,4 +1,4 @@
-package checkoutengine;
+package checkoutengine.domain;
 
 import java.util.ArrayList;
 import java.util.List;
