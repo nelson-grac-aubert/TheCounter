@@ -1,8 +1,11 @@
 package checkoutengine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import checkoutengine.VAT.VatBreakdownLine;
 import checkoutengine.VAT.VatRateStrategy;
 import checkoutengine.discounts.DiscountHandler;
 import checkoutengine.discounts.FidelityDiscountHandler;
@@ -38,22 +41,31 @@ public class Checkout {
         double discountAmount = winner.computeDiscount(cart, fidelityPoints);
         String discountName = winner.name();
 
-        double noDisFoodTtc = cart.foodTotal();
-        double noDisOtherTtc = cart.otherTotal();
-        double noDisSubTotal = noDisFoodTtc + noDisOtherTtc;
-
         boolean usedFid = winner instanceof FidelityDiscountHandler;
-        double ratio = noDisFoodTtc / noDisSubTotal;
-        double foodTtc = noDisFoodTtc - discountAmount * ratio;
-        double otherTtc = noDisOtherTtc - discountAmount * (1 - ratio);
 
-        //ttc and tax
-        double foodHt = foodTtc / 1.055;
-        double vat5 = foodTtc - foodHt;
-        double otherHt = otherTtc / 1.2;
-        double vat20 = otherTtc - otherHt;
-        double totalHt = foodHt + otherHt;
-        double totalTtc = foodTtc + otherTtc;
+        double subtotal = cart.subtotal();
+        double discountFactor = (subtotal == 0) ? 1.0 : (subtotal - discountAmount) / subtotal;
+
+        Map<Double, Double> ttcByRate = new HashMap<>();
+        for (TicketLine line : lines) {
+            ttcByRate.merge(line.vatRate(), line.lineTotal(), Double::sum);
+        }
+
+        List<VatBreakdownLine> vatBreakdown = new ArrayList<>();
+        double totalHt = 0.0;
+        double totalTtc = 0.0;
+
+        for (Map.Entry<Double, Double> entry : ttcByRate.entrySet()) {
+            double rate = entry.getKey();
+            double rawTtc = entry.getValue();
+            double discountedTtc = rawTtc * discountFactor;
+            double ht = discountedTtc / (1 + rate / 100);
+            double vatAmount = discountedTtc - ht;
+
+            totalHt += ht;
+            totalTtc += discountedTtc;
+            vatBreakdown.add(new VatBreakdownLine(rate, vatAmount));
+        }
 
         //fid points
         //cast a double as an int and round the amount 48.66 euros = 48 points
@@ -63,8 +75,7 @@ public class Checkout {
         return new Ticket(
             lines,
             totalHt,
-            vat5,
-            vat20,
+            vatBreakdown,
             totalTtc,
             discountAmount,
             fidPEarned,

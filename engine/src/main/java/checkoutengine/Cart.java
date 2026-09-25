@@ -3,8 +3,6 @@ package checkoutengine;
 import java.util.ArrayList;
 import java.util.List;
 
-import checkoutengine.Product.ProductCategory;
-
 public class Cart {
     // declare lines as a list of CartLine init as a dynamic array
     private final List<CartLine> lines = new ArrayList<>();
@@ -22,37 +20,6 @@ public class Cart {
             total += line.cartLineTotal();
         }
         return total;
-    }
-
-    //TTC price calculation for food 5.5
-    public double foodTotal()
-    {
-        double total = 0.0;
-        for(CartLine line : lines)
-        {
-            //for each line of cartline check if each product of said line is equal to enum cat food 
-            if (line.product().category() == Product.ProductCategory.FOOD || line.product().category() ==  (Product.ProductCategory.DRINKS))
-            {
-                total += line.cartLineTotal();
-            }
-        }
-        return total;
-    }
-
-    //TTC price calculation for everything else 20
-    public double otherTotal()
-    {
-        double total = 0.0;
-        
-        for (CartLine line : lines)
-             //for each line of cartline check if each product of said line is not equal to enum cat food 
-        {
-            if (line.product().category() == ProductCategory.OTHER) {
-                total += line.cartLineTotal();
-            }
-        }
-        return total;
-
     }
 
     public List<CartLine> getLines() {
