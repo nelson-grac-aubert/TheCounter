@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import checkoutengine.VAT.VatRateStrategy;
+import checkoutengine.discounts.DiscountHandler;
+import checkoutengine.discounts.FidelityDiscountHandler;
+import checkoutengine.discounts.FreeDrinksDiscountHandler;
+import checkoutengine.discounts.NoDiscount;
+import checkoutengine.discounts.ThresholdDiscountHandler;
 
 public class Checkout {
     
@@ -23,51 +28,23 @@ public class Checkout {
             lines.add(ticketLine);
         }
 
-        //ttc v3
-        // double foodTtc = cart.foodTotal()- cart.freeDrinksDiscount();
-        // double otherTtc = cart.otherTotal()  ;
-        // double subTotal = foodTtc + otherTtc;
+        // order doesn't matter : all are checked, and only the best one is kept
+        DiscountHandler chain = new ThresholdDiscountHandler();
+        chain.setNext(new FreeDrinksDiscountHandler()).setNext(new FidelityDiscountHandler());
+        DiscountHandler winner = chain.findBest(cart, new NoDiscount());
         
+        // COR : get the best discount value (for computation) and name (for receipt display)
+        double discountAmount = winner.computeDiscount(cart);
+        String discountName = winner.name();
+
         double noDisFoodTtc = cart.foodTotal();
         double noDisOtherTtc = cart.otherTotal();
         double noDisSubTotal = noDisFoodTtc + noDisOtherTtc;
 
-        //ttc v2
-        // double discount = (subTotal > 50) ? 0.9 : 1.0;
-        // foodTtc *= discount;
-        // otherTtc *= discount;
-
-        //disoucnt v2 including v5
-        double discountV2 = (noDisSubTotal > 50) ? (noDisSubTotal * 0.10) : 0.0;
-        //disocunt v3 including v5
-        double discountV3 = cart.freeDrinksDiscount();
-        //discountv5
-        //choose a max of 5 euros as a possible discount if more than 100 points available or else nothing 
-        double discountV5 = (cart.getFidPoints() >= 100)? Math.min(5.0, noDisSubTotal) : 0.0;
-        // compare best discounts and choose best 
-        double bestdiscount = Math.max(discountV2, Math.max(discountV3, discountV5));
-        double discountAmount = 0;
-        boolean usedFid = false;
-        double foodTtc = noDisFoodTtc;
-        double otherTtc = noDisOtherTtc;
-        //conditions that compare discount amounts and choose best
-
-            discountAmount = bestdiscount;
-            if (bestdiscount == discountV2) {
-                foodTtc *= 0.9;
-                otherTtc *= 0.9;
-            }
-            else if (bestdiscount == discountV3) {
-                foodTtc -= discountV3;
-            }
-            else // discount v5 is best
-            {
-                usedFid = true;
-                double ratio = noDisFoodTtc / noDisSubTotal; //separate food from other, should rework v3 
-                foodTtc -= discountV5 * ratio;
-                otherTtc -= discountV5 * (1-ratio);
-            }
-
+        boolean usedFid = winner instanceof FidelityDiscountHandler;
+        double ratio = noDisFoodTtc / noDisSubTotal;
+        double foodTtc = noDisFoodTtc - discountAmount * ratio;
+        double otherTtc = noDisOtherTtc - discountAmount * (1 - ratio);
 
         //ttc and tax
         double foodHt = foodTtc / 1.055;
@@ -82,7 +59,6 @@ public class Checkout {
         int fidPEarned = (int) Math.floor(totalTtc); 
         int fidBalance = cart.getFidPoints() - (usedFid ? 100 : 0) + fidPEarned;
 
-
         return new Ticket(
             lines,
             totalHt,
@@ -91,24 +67,9 @@ public class Checkout {
             totalTtc,
             discountAmount,
             fidPEarned,
-            fidBalance
+            fidBalance,
+            discountName
             );
-
-
-        
-
-
-    }
-    
-    public void print(Cart cart)
-    {
-        System.out.println(cart.toString());
-    }
-    public static void main(String[] args)
-    {
-        Checkout checkout = new Checkout();
-        Cart cart = new Cart();
-        checkout.print(cart);
     }
 }
 

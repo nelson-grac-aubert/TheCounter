@@ -11,7 +11,8 @@ public record Ticket (
     //added for fidelity points in v5
     double discountAmount,
     int fidPEarned,
-    int fidBalance
+    int fidBalance,
+    String discountName
 )
 {
     
