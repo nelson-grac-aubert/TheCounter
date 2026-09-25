@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import checkoutengine.VAT.VatRateStrategy;
-import checkoutengine.Product.ProductCategory;
 
 public class Checkout {
     
