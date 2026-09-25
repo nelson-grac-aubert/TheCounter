@@ -107,3 +107,7 @@ export const allConflictingDiscountsCart : Cart = [
     fourWinesLine,
     threeCheesesLine
 ]
+
+export const fidelityCart : Cart = [
+    twoFruitsLine
+]

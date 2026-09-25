@@ -14,4 +14,7 @@ export interface Ticket {
   vat5: number;
   vat20: number;
   totalTtc: number;
+  discountAmount: number;
+  fidPEarned: number;
+  fidBalance: number;
 }

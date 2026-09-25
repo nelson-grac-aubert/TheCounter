@@ -24,13 +24,15 @@ export function formatReceipt(ticket: Ticket): string {
 
   const separator = "-".repeat(74);
 
-  // footer: engine now computes these four (v4), discount amount itself still isn't exposed separately
+  // footer: engine now computes all of this (v4 totals, v5 discount + loyalty points)
   const footer = [
     "ET TOTAL".padEnd(31) + currencyFormatter.format(ticket.totalHt).padStart(43),
     "TOTAL 5.5% TAX".padEnd(31) + currencyFormatter.format(ticket.vat5).padStart(43),
     "TOTAL 20% TAX".padEnd(31) + currencyFormatter.format(ticket.vat20).padStart(43),
-    "APPLIED DISCOUNT".padEnd(46),
-    "NET TOTAL".padEnd(31) + currencyFormatter.format(ticket.totalTtc).padStart(43)
+    "APPLIED DISCOUNT".padEnd(31) + currencyFormatter.format(ticket.discountAmount).padStart(43),
+    "NET TOTAL".padEnd(31) + currencyFormatter.format(ticket.totalTtc).padStart(43),
+    "POINTS EARNED".padEnd(31) + String(ticket.fidPEarned).padStart(43),
+    "POINTS BALANCE".padEnd(31) + String(ticket.fidBalance).padStart(43),
   ];
 
   const ticketEnd = "\n\n\n";
