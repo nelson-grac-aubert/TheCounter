@@ -24,12 +24,16 @@ export function formatReceipt(ticket: Ticket): string {
 
   const separator = "-".repeat(74);
 
+  // one line per VAT rate actually present on this ticket — no hardcoded rate count anymore
+  const vatLines = ticket.vatBreakdown.map((entry) => {
+    return `TOTAL ${entry.rate}% TAX`.padEnd(31) + currencyFormatter.format(entry.vatAmount).padStart(43);
+  });
+
   // footer: engine now computes all of this (v4 totals, v5 discount + loyalty points)
   const footer = [
     "ET TOTAL".padEnd(31) + currencyFormatter.format(ticket.totalHt).padStart(43),
-    "TOTAL 5.5% TAX".padEnd(31) + currencyFormatter.format(ticket.vat5).padStart(43),
-    "TOTAL 20% TAX".padEnd(31) + currencyFormatter.format(ticket.vat20).padStart(43),
-    "APPLIED DISCOUNT".padEnd(31) + currencyFormatter.format(ticket.discountAmount).padStart(43),
+    ...vatLines,
+    `${ticket.discountName}`.padEnd(31) + currencyFormatter.format(ticket.discountAmount).padStart(43),
     "NET TOTAL".padEnd(31) + currencyFormatter.format(ticket.totalTtc).padStart(43),
     "POINTS EARNED".padEnd(31) + String(ticket.fidPEarned).padStart(43),
     "POINTS BALANCE".padEnd(31) + String(ticket.fidBalance).padStart(43),

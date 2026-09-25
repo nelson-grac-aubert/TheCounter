@@ -8,13 +8,18 @@ export interface TicketLine {
   vatRate: number;
 }
 
+export interface VatBreakdownLine {
+  rate: number;
+  vatAmount: number;
+}
+
 export interface Ticket {
   lines: TicketLine[];
   totalHt: number;
-  vat5: number;
-  vat20: number;
+  vatBreakdown: VatBreakdownLine[];
   totalTtc: number;
   discountAmount: number;
   fidPEarned: number;
   fidBalance: number;
+  discountName: string;
 }
