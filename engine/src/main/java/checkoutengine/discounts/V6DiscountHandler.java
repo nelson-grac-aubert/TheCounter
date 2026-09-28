@@ -23,9 +23,9 @@ public class V6DiscountHandler extends DiscountHandler {
                         foodCount += 1; 
                     }
                 }
+            }
             if (line.product().category() == ProductCategory.DRINKS) {
                 drinkCount += line.quantity();
-            }
             }
         }
 
