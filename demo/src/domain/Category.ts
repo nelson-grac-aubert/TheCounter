@@ -1,1 +1,1 @@
-export type Category = "FOOD" | "DRINKS" | "OTHER";
+export type Category = "FOOD" | "DRINKS" | "OTHER" | "ALCOHOL";

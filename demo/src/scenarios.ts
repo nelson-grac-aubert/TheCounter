@@ -35,14 +35,14 @@ const beer: Product = {
     reference: "REF004",
     label: "Beer 24 x 33cL",
     unitPrice: 12.79,
-    category: "DRINKS",
+    category: "ALCOHOL",
 };
 
 const wine: Product = {
     reference: "REF007",
     label: "White wine Coteaux d'Aix",
     unitPrice: 9.79,
-    category: "DRINKS",
+    category: "ALCOHOL",
 };
 
 const sirup: Product = {

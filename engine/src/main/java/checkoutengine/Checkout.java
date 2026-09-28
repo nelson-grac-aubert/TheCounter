@@ -12,6 +12,7 @@ import checkoutengine.discounts.FidelityDiscountHandler;
 import checkoutengine.discounts.FreeDrinksDiscountHandler;
 import checkoutengine.discounts.NoDiscount;
 import checkoutengine.discounts.ThresholdDiscountHandler;
+import checkoutengine.discounts.V6DiscountHandler;
 import checkoutengine.domain.Cart;
 import checkoutengine.domain.CartLine;
 import checkoutengine.domain.Ticket;
@@ -37,7 +38,7 @@ public class Checkout {
 
         // order doesn't matter : all are checked, and only the best one is kept
         DiscountHandler chain = new ThresholdDiscountHandler();
-        chain.setNext(new FreeDrinksDiscountHandler()).setNext(new FidelityDiscountHandler());
+        chain.setNext(new FreeDrinksDiscountHandler()).setNext(new FidelityDiscountHandler()).setNext(new V6DiscountHandler());
         // Default is NoDiscount to start the chain check
         DiscountHandler winner = chain.findBest(cart, fidelityPoints, new NoDiscount());
         

@@ -1,6 +1,7 @@
 package checkoutengine.domain;
 
 import checkoutengine.VAT.VatRateStrategy;
+import checkoutengine.VAT.AlcoholVatRate;
 import checkoutengine.VAT.FoodVatRate;
 import checkoutengine.VAT.StandardVatRate;
 
@@ -15,7 +16,8 @@ public record Product(String reference, ProductCategory category, String label, 
     public enum ProductCategory {
         FOOD(new FoodVatRate()),
         DRINKS(new FoodVatRate()),
-        OTHER(new StandardVatRate());
+        OTHER(new StandardVatRate()),
+        ALCOHOL(new AlcoholVatRate()); 
 
         private final VatRateStrategy vatRateStrategy;
 
