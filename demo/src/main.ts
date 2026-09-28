@@ -1,9 +1,14 @@
 import { checkout } from "./api";
 import { formatReceipt } from "./receipt";
-import { threeBeveragesDiscountCart, aboveFiftyEurosCart, allConflictingDiscountsCart, fidelityCart } from "./scenarios";
+import { threeBeveragesDiscountCart, aboveFiftyEurosCart, allConflictingDiscountsCart, fidelityCart, v6FoodAndDrinkDiscountCart } from "./scenarios";
 
 async function main() {
-  const carts = [threeBeveragesDiscountCart, aboveFiftyEurosCart, allConflictingDiscountsCart, fidelityCart];
+  const carts = [threeBeveragesDiscountCart, 
+                  aboveFiftyEurosCart, 
+                  allConflictingDiscountsCart, 
+                  fidelityCart, 
+                  v6FoodAndDrinkDiscountCart
+                ];
   let points = 0;
 
   for (const cart of carts) {

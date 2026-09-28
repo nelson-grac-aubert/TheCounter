@@ -73,6 +73,7 @@ const twoFruitsLine : CartLine = { product : fruit, quantity: 2 };
 const oneCheeseLine : CartLine = { product : cheese, quantity: 1 };
 const threeCheesesLine : CartLine = { product : cheese, quantity: 3 };
 const oneMeatLine : CartLine = { product : meat, quantity: 1 };
+const twoMeatsLine : CartLine = { product : meat, quantity: 2 };
 const oneLemonadeLine : CartLine = { product : lemonade, quantity: 1 };
 const fiveLemonadesLine : CartLine = { product : lemonade, quantity: 5 };
 const oneBeerLine : CartLine = { product : beer, quantity: 1 };
@@ -110,4 +111,9 @@ export const allConflictingDiscountsCart : Cart = [
 
 export const fidelityCart : Cart = [
     twoFruitsLine
+]
+
+export const v6FoodAndDrinkDiscountCart : Cart = [
+    twoMeatsLine,
+    oneLemonadeLine
 ]
